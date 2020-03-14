@@ -2,11 +2,7 @@ import os
 from dotenv import load_dotenv
 from instabot import Bot
 import datetime
-import time
 
-
-def get_amount(key):
-    return key[1]
 
 
 def fetch_posts_id(bot):
@@ -32,24 +28,24 @@ def fetch_all_comments_in_post(bot, posts_id, period=90):
     return {'users_comments': users_comments, 'users_posts': users_posts}
 
 
-def get_rating_comments(users_comments):
-    rating_comments = {}
+def get_comments_rating(users_comments):
+    comments_rating = {}
     for user in users_comments:
-        if rating_comments.get(user) is None:
-            rating_comments[user] = 1
+        if user in comments_rating:
+            comments_rating[user] = 1
         else:
-            rating_comments[user] += 1
-    return rating_comments
+            comments_rating[user] += 1
+    return comments_rating
 
 
-def get_rating_posts(users_posts, comment_users):
-    rating_post = dict((user, 0) for user in comment_users)
+def get_posts_rating(users_posts, comment_users):
+    posts_rating = dict((user, 0) for user in comment_users)
     for number in users_posts.keys():
         users = users_posts[number]
         for user in comment_users:
             if user in users:
-                rating_post[user] += 1
-    return rating_post
+                posts_rating[user] += 1
+    return posts_rating
 
 
 def main():
@@ -64,8 +60,8 @@ def main():
     comments = fetch_all_comments_in_post(bot, posts_id)
     users_posts = comments['users_posts']
     users_comments = comments['users_comments']
-    posts_result = get_rating_posts(users_posts,users_comments)
-    comments_result = get_rating_comments(users_comments)
+    posts_result = get_posts_rating(users_posts, users_comments)
+    comments_result = get_comments_rating(users_comments)
     print(f'Comments Top:{comments_result}\n\nPosts Top:{posts_result}')
 
 

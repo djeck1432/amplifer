@@ -5,28 +5,23 @@ import requests
 
 
 def fetch_posts_ids(fb_token, group_id):
-    posts_ids = []
     url = f'https://graph.facebook.com/v6.0/{group_id}/feed'
     params = {'access_token': fb_token}
     response = requests.get(url, params=params)
     response.raise_for_status()
-    for post in response.json()['data']:
-        posts_ids.append(post['id'])
+    posts_ids = [post['id'] for post in response.json()['data']]
     return posts_ids
 
 
 def fetch_posts_comments(fb_token, post_id):
-    post_comments = []
     params = {'access_token': fb_token}
     response = requests.get(f'https://graph.facebook.com/v5.0/{post_id}/comments', params=params)
     response.raise_for_status()
     comments = response.json()['data']
-    for comment in comments:
-        post_comments.append({
-            'user_id': comment['from']['id'],
-            'created_time': comment['created_time'],
-            'message': comment['message'],
-        })
+    post_comments = [{'user_id': comment['from']['id'],
+                      'created_time': comment['created_time'],
+                      'message': comment['message']} for comment in comments
+                     ]
     return post_comments
 
 
@@ -43,16 +38,11 @@ def fetch_comments_period(comments, period=30):
 
 
 def fetch_post_reactions(fb_token, post_id):
-    post_reactions = []
     params = {'access_token': fb_token}
     response = requests.get(f'https://graph.facebook.com/v5.0/{post_id}/reactions', params=params)
     response.raise_for_status()
     reactions = response.json()['data']
-    for reaction in reactions:
-        post_reactions.append({
-            'user_id': reaction['id'],
-            'type': reaction['type'],
-        })
+    post_reactions = [{'user_id': reaction['id'],'type': reaction['type']} for reaction in reactions]
     return post_reactions
 
 
