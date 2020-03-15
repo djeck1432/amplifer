@@ -5,18 +5,18 @@ import datetime
 
 
 
-def fetch_posts_id(bot):
+def fetch_posts_ids(bot):
     user_id = bot.get_user_id_from_username('cocacolarus')
-    posts_id = bot.get_user_medias(user_id, filtration=False)
-    return posts_id
+    posts_ids = bot.get_user_medias(user_id, filtration=False)
+    return posts_ids
 
 
-def fetch_all_comments_in_post(bot, posts_id, period=90):
+def fetch_all_comments_in_post(bot, posts_ids, period=90):
     users_comments = set()
     users_posts = {}
     users = set()
     time_delta = datetime.datetime.now() - datetime.timedelta(days=period)
-    for post_number, post in enumerate(posts_id):
+    for post_number, post in enumerate(posts_ids):
         post_comments = bot.get_media_comments_all(post)
         for comment in post_comments:
             date_formatted = datetime.datetime.fromtimestamp(comment['created_at'])
@@ -56,8 +56,8 @@ def main():
     bot = Bot()
     bot.login(username=inst_login, password=inst_password)
 
-    posts_id = fetch_posts_id(bot)
-    comments = fetch_all_comments_in_post(bot, posts_id)
+    posts_ids = fetch_posts_ids(bot)
+    comments = fetch_all_comments_in_post(bot, posts_ids)
     users_posts = comments['users_posts']
     users_comments = comments['users_comments']
     posts_result = get_posts_rating(users_posts, users_comments)

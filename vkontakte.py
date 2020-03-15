@@ -115,11 +115,11 @@ def main():
     group_id = get_group_id(vk_token, 'cocacola')
     posts = fetch_posts(vk_token)[:3]
     cern = []
-    for post in posts:
-        comments = fetch_commetns(vk_token, '1810876', group_id)
+    for post_id in posts:
+        comments = fetch_commetns(vk_token, post_id, group_id)
         last_comments = fetch_comments_period(comments)
         comments = fetch_comments_id(last_comments, group_id)
-        likes = fetch_all_likes(vk_token, group_id, '1810876')
+        likes = fetch_all_likes(vk_token, group_id, post_id)
         cern.append(comments.difference(likes))
     print(cern)
 

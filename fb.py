@@ -47,17 +47,17 @@ def fetch_post_reactions(fb_token, post_id):
 
 
 def fetch_post_details(fb_token, posts_ids):
-    users_id = []
-    users_like = []
+    users_ids = []
+    users_likes = []
     for post_id in posts_ids:
         post_comments = fetch_posts_comments(fb_token, post_id)
         comments_period = fetch_comments_period(post_comments)
         post_reactions = fetch_post_reactions(fb_token, post_id)
         if comments_period is not None:
-            users_id.append(comments_period)
+            users_ids.append(comments_period)
         if post_reactions is not None:
-            users_like.append(post_reactions)
-    return users_id,users_like
+            users_likes.append(post_reactions)
+    return users_ids,users_likes
 
 
 def main():
