@@ -20,7 +20,7 @@ Python3 должен быть уже установлен. Затем испол
 <br>
 ## Как запустить 
 Для запуска скрипта, в терминале выполните следующую команду:<br>
-```python smm_analyze.py [соцальная сеть]```<br>
+```python smm_analyze.py [социальная сеть]```<br>
 ```instagram``` - instagram;<br>
 ```facebook``` - facebook; <br>
 ```vkontakte``` - vkontakte;<br>
