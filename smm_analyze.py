@@ -15,8 +15,8 @@ args = parser.parse_args()
 
 if __name__=='__main__':
     if args.social_network == 'instagram':
-        inst.main()
+        inst.inst_run()
     elif args.social_network == 'facebook':
-        fb.main()
+        fb.fb_run()
     elif args.social_network == 'vkontakte':
-        vkontakte.main()
+        vkontakte.vk_run()

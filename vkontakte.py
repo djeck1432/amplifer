@@ -109,7 +109,7 @@ def fetch_all_likes(vk_token, group_id, post_id):
     return set(likes)
 
 
-def main():
+def vk_run():
     load_dotenv()
     vk_token = os.getenv('VK_TOKEN')
     group_id = get_group_id(vk_token, 'cocacola')
@@ -125,4 +125,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    vk_run()

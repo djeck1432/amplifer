@@ -32,7 +32,7 @@ def fetch_comments_period(comments, period=30):
         comment_date = datetime.datetime.strptime(date, '%Y-%m-%d')
         now = datetime.datetime.now()
         timedelta = now - comment_date
-        if datetime.timedelta(days=period) > timedelta:
+        if timedelta.days <= period:
             last_comments.append(comment['user_id'])
     return last_comments
 
@@ -60,14 +60,14 @@ def fetch_post_details(fb_token, posts_ids):
     return users_ids,users_likes
 
 
-def main():
+def fb_run():
     load_dotenv()
     fb_token = os.getenv('FACEBOOK_TOKEN')
     fb_group_id = os.getenv('FACEBOOK_GROUP_ID')
     posts_ids = fetch_posts_ids(fb_token, fb_group_id)
-    users_id, users_like = fetch_post_details(fb_token, posts_ids)
-    print(f'{users_id}\n{users_like}')
+    users_ids, users_likes = fetch_post_details(fb_token, posts_ids)
+    print(f'{users_ids}\n{users_likes}')
 
 
 if __name__ == '__main__':
-    main()
+    fb_run()
