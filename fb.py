@@ -60,7 +60,7 @@ def fetch_post_details(fb_token, posts_ids):
     return users_ids,users_likes
 
 
-def fb_run():
+def run_fb():
     load_dotenv()
     fb_token = os.getenv('FACEBOOK_TOKEN')
     fb_group_id = os.getenv('FACEBOOK_GROUP_ID')
@@ -70,4 +70,4 @@ def fb_run():
 
 
 if __name__ == '__main__':
-    fb_run()
+    run_fb()
