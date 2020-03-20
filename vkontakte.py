@@ -4,40 +4,49 @@ from dotenv import load_dotenv
 import datetime
 
 
-def fetch_posts(vk_token):
+def get_payload(vk_token,offset):
+    payload = {
+        'access_token': vk_token,
+        'v': '5.103',
+        'count': 100,
+        'offset': offset,
+    }
+    return payload
+
+
+def fetch_posts(vk_token,vk_group_name):
     url = 'https://api.vk.com/method/wall.get'
     offset = 0
     count_posts = 100
     posts_ids = []
     while offset < count_posts:
-        payload = {
-            'domain': 'cocacola',
-            'access_token': vk_token,
-            'v': '5.103',
-            'filter': 'owner',
-            'offset': offset,
-            'count': 100
-        }
-
+        extra_payload = {'domain': vk_group_name,'filter': 'owner'}
+        payload = get_payload(vk_token,offset)
+        payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        response.raise_for_status()
-        offset += 100
-        count_posts = response.json()['response']['count']
-        post_items = response.json()['response']['items']
-        [posts_ids.append(post_items[post_number]['id']) for post_number in range(len(post_items))]
+        if 'error' in response.json():
+            return response.json()['error']
+        else:
+            response_json = response.json()['response']
+            offset += 100
+            count_posts = response_json['count']
+            post_items = response_json['items']
+            [posts_ids.append(post_items[post_number]['id']) for post_number, item in enumerate(post_items)]
     return posts_ids
 
 
-def get_group_id(vk_token, group_name):
+def get_group_id(vk_token, vk_group_name):
     url = 'https://api.vk.com/method/groups.getById'
     params = {
-        'group_id': group_name,
+        'group_id': vk_group_name,
         'access_token': vk_token,
         'v': '5.103'
     }
     response = requests.get(url=url, params=params)
-    response.raise_for_status()
-    return '-' + str(response.json()['response'][0]['id'])
+    if 'error' in response.json():
+        return response.json()['error']
+    else:
+        return f"-{response.json()['response'][0]['id']}"
 
 
 def fetch_commetns(vk_token, post_id, group_id):
@@ -46,22 +55,20 @@ def fetch_commetns(vk_token, post_id, group_id):
     count_comments = 100
     comments = []
     while offset < count_comments:
-        payload = {
-            'access_token': vk_token,
-            'v': '5.103',
-            'owner_id': group_id,
-            'post_id': post_id,
-            'offset': offset,
-            'count': 100,
-        }
+        extra_payload = {'owner_id': group_id,'post_id': post_id}
+        payload = get_payload(vk_token, offset)
+        payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        response.raise_for_status()
-        offset += 100
-        count_comments = response.json()['response']['count']
-        comments_count = len(response.json()['response']['items'])
-        if comments_count > 0:
-            for comment_number in range(comments_count):
-                comments.append(response.json()['response']['items'][comment_number])
+        if 'error' in response.json():
+            return response.json()['error']
+        else:
+            response_json = response.json()['response']
+            offset += 100
+            count_comments = response_json['count']
+            comments_count = len(response_json['items'])
+            if comments_count > 0:
+                for comment_number in range(comments_count):
+                    comments.append(response_json['items'][comment_number])
     return comments
 
 
@@ -91,20 +98,17 @@ def fetch_all_likes(vk_token, group_id, post_id):
     likes = []
     count_likes = 100
     while offset < count_likes:
-        payload = {
-            'access_token': vk_token,
-            'v': '5.103',
-            'type': 'post',
-            'owner_id': group_id,
-            'item_id': post_id,
-            'offset': offset,
-            'count': 100,
-        }
+        extra_payload = {'type': 'post', 'owner_id': group_id,'item_id': post_id}
+        payload = get_payload(vk_token, offset)
+        payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        response.raise_for_status()
-        offset += 100
-        count_likes = response.json()['response']['count']
-        likes.extend(response.json()['response']['items'])
+        if 'error' in response.json():
+            return response.json()['error']
+        else:
+            response_json = response.json()['response']
+            offset += 100
+            count_likes = response_json['count']
+            likes.extend(response_json['items'])
 
     return set(likes)
 
@@ -112,8 +116,10 @@ def fetch_all_likes(vk_token, group_id, post_id):
 def run_vk():
     load_dotenv()
     vk_token = os.getenv('VK_TOKEN')
-    group_id = get_group_id(vk_token, 'cocacola')
-    posts = fetch_posts(vk_token)[:3]
+    vk_group_name = os.getenv('VK_GROUP_NAME')
+    group_id = get_group_id(vk_token, vk_group_name)
+
+    posts = fetch_posts(vk_token,vk_group_name)[:5]
     cern = []
     for post_id in posts:
         comments = fetch_commetns(vk_token, post_id, group_id)
