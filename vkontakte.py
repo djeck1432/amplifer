@@ -31,7 +31,8 @@ def fetch_posts(vk_token,vk_group_name):
             offset += 100
             count_posts = response_json['count']
             post_items = response_json['items']
-            [posts_ids.append(post_items[post_number]['id']) for post_number, item in enumerate(post_items)]
+            post_ids = [post_items[post_number]['id'] for post_number, item in enumerate(post_items)]
+            posts_ids.extend(post_ids)
     return posts_ids
 
 
