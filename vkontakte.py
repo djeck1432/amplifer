@@ -24,10 +24,10 @@ def fetch_posts(vk_token,vk_group_name):
         payload = get_payload(vk_token,offset)
         payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        if 'error' in response.json():
-            return response.json()['error']
+        response_json = response.json()['response']
+        if 'error' in response_json:
+            return response_json['error']
         else:
-            response_json = response.json()['response']
             offset += 100
             count_posts = response_json['count']
             post_items = response_json['items']
@@ -44,10 +44,11 @@ def get_group_id(vk_token, vk_group_name):
         'v': '5.103'
     }
     response = requests.get(url=url, params=params)
-    if 'error' in response.json():
-        return response.json()['error']
+    response_json = response.json()['response']
+    if 'error' in response_json:
+        return response_json['error']
     else:
-        return f"-{response.json()['response'][0]['id']}"
+        return f"-{response_json[0]['id']}"
 
 
 def fetch_commetns(vk_token, post_id, group_id):
@@ -60,10 +61,11 @@ def fetch_commetns(vk_token, post_id, group_id):
         payload = get_payload(vk_token, offset)
         payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        if 'error' in response.json():
-            return response.json()['error']
+        response_json = response.json()['response']
+        if 'error' in response_json:
+            return response_json['error']
         else:
-            response_json = response.json()['response']
+
             offset += 100
             count_comments = response_json['count']
             comments_count = len(response_json['items'])
@@ -103,10 +105,10 @@ def fetch_all_likes(vk_token, group_id, post_id):
         payload = get_payload(vk_token, offset)
         payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        if 'error' in response.json():
-            return response.json()['error']
+        response_json = response.json()['response']
+        if 'error' in response_json:
+            return response_json['error']
         else:
-            response_json = response.json()['response']
             offset += 100
             count_likes = response_json['count']
             likes.extend(response_json['items'])
