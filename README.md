@@ -32,8 +32,10 @@ Python3 должен быть уже установлен. Затем испол
 
 ```INSTAGRAM_LOGIN``` - логин в ```Instagram```;<br>
 ```INSTAGRAM_PASSWORD``` - пароль от ```Instagram```;<br>
+```INSTAGRAM_ACCAUNT``` - имя аккаунта в ```Instagram```;<br>
 <br>
 ```VK_TOKEN``` - токен от  ```Vkontakte```;<br>
+```VK_GROUP_NAME ```- названия группы в ```Vkontakte```;<br>
 <br>
 ```FACEBOOK_TOKEN```- токен от ```Facebook```;<br>
 ```FACEBOOK_GROUP_ID``` - ```id``` группы в  ```Facebook```;
