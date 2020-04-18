@@ -2,22 +2,21 @@
 Данная программа, поможет вам проанализировать посты в ваших социальных сетях и показать ядро ваших поклонников.
 
 
-## Как установить
+## How to install
 
-Python3 должен быть уже установлен. Затем используйте pip (или pip3, есть конфликт с Python2) для установки зависимостей:<br>
+Python3 have to be already installed. Then use pip (or pip3, there is a contravention with Python2) to install dependencies: :<br>
 
 ``` git clone https://github.com/djeck1432/amplifer.git ```
 
-После того, как скачали репозиторий, откройте в терминале(MacOs) или в консоли(Linux) папку ```amplifer``` следующей командой:<br>
+After you downloaded the repository open a folder ```amplifer``` using next command: <br>
 
 ```cd amplifer```
 
-Для того, что бы запустить код, нужно установить необходимые библиотеки:<br>
+Now all of the required libraries and modules have to be installed:<br>
 
 ```pip install -r requirements.txt ```<br>
 
-Готово, мы установили проект и все необходимые библиотеки у нас на компьютере.
-<br>
+Now we are ready for the script .
 ## Как запустить 
 Для запуска скрипта, в терминале выполните следующую команду:<br>
 ```python smm_analyze.py [социальная сеть]```<br>
