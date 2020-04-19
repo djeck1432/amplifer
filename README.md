@@ -1,5 +1,5 @@
-# Сбор статистики в социальных сетях
-Данная программа, поможет вам проанализировать посты в ваших социальных сетях и показать ядро ваших поклонников.
+# Social statistics collection
+This program, can you help with analyzing posts in your social networks and show the core of your fans.
 
 
 ## How to install
@@ -16,25 +16,26 @@ Now all of the required libraries and modules have to be installed:<br>
 
 ```pip install -r requirements.txt ```<br>
 
-Now we are ready for the script .
-## Как запустить 
-Для запуска скрипта, в терминале выполните следующую команду:<br>
-```python smm_analyze.py [социальная сеть]```<br>
+Now we are ready for the script.
+
+## How to start 
+For start, code do the next command in the terminal:<br>
+```python smm_analyze.py [social network]```<br>
 ```instagram``` - instagram;<br>
 ```facebook``` - facebook; <br>
 ```vkontakte``` - vkontakte;<br>
-Пример запуска:<br>
+Launch example:<br>
 ```python smm_analyze.py instagram```<br>
 
 
-## Переменные окружения 
+## Environment variables 
 
-```INSTAGRAM_LOGIN``` - логин в ```Instagram```;<br>
-```INSTAGRAM_PASSWORD``` - пароль от ```Instagram```;<br>
-```INSTAGRAM_ACCAUNT``` - имя аккаунта в ```Instagram```;<br>
+```INSTAGRAM_LOGIN``` - login to```Instagram```;<br>
+```INSTAGRAM_PASSWORD``` - password to ```Instagram```;<br>
+```INSTAGRAM_ACCAUNT``` - username to  ```Instagram```;<br>
 <br>
-```VK_TOKEN``` - токен от  ```Vkontakte```;<br>
-```VK_GROUP_NAME ```- названия группы в ```Vkontakte```;<br>
+```VK_TOKEN``` - token ```Vkontakte```;<br>
+```VK_GROUP_NAME ```- group name ```Vkontakte```;<br>
 <br>
-```FACEBOOK_TOKEN```- токен от ```Facebook```;<br>
-```FACEBOOK_GROUP_ID``` - ```id``` группы в  ```Facebook```;
+```FACEBOOK_TOKEN```- token ```Facebook```;<br>
+```FACEBOOK_GROUP_ID``` - ```id``` group in  ```Facebook```;
