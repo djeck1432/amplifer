@@ -1,5 +1,5 @@
 # Social statistics collection
-This program, can you help with analyzing posts in your social networks and show the core of your fans.
+This program can help you with analyzing posts in your social networks and show the core of your fans.
 
 
 ## How to install
