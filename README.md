@@ -8,9 +8,9 @@ Python3 have to be already installed. Then use pip (or pip3, there is a contrave
 
 ``` git clone https://github.com/djeck1432/amplifer.git ```
 
-After you downloaded the repository open a folder ```amplifer``` using next command: <br>
+After you downloaded the repository open a folder ```amplifier``` using next command: <br>
 
-```cd amplifer```
+```cd amplifier```
 
 Now all of the required libraries and modules have to be installed:<br>
 
@@ -21,9 +21,9 @@ Now we are ready for the script.
 ## How to start 
 For start, code do the next command in the terminal:<br>
 ```python smm_analyze.py [social network]```<br>
-```instagram``` - instagram;<br>
-```facebook``` - facebook; <br>
-```vkontakte``` - vkontakte;<br>
+```Instagram``` - instagram;<br>
+```Facebook``` - facebook; <br>
+```Vkontakte``` - vkontakte;<br>
 Launch example:<br>
 ```python smm_analyze.py instagram```<br>
 
@@ -38,4 +38,4 @@ Launch example:<br>
 ```VK_GROUP_NAME ```- group name ```Vkontakte```;<br>
 <br>
 ```FACEBOOK_TOKEN```- token ```Facebook```;<br>
-```FACEBOOK_GROUP_ID``` - ```id``` group in  ```Facebook```;
+```FACEBOOK_GROUP_ID``` - ```id``` group on  ```Facebook```;
