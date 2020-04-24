@@ -4,38 +4,51 @@ This program can help you with analyzing posts in your social networks and show 
 
 ## How to install
 
-Python3 have to be already installed. Then use pip (or pip3, there is a contravention with Python2) to install dependencies: :<br>
-
-``` git clone https://github.com/djeck1432/amplifer.git ```
-
-After you downloaded the repository open a folder ```amplifier``` using next command: <br>
-
-```cd amplifier```
-
-Now all of the required libraries and modules have to be installed:<br>
-
-```pip install -r requirements.txt ```<br>
-
+Python3 have to be already installed. Then use pip (or pip3, there is a contravention with Python2) to install dependencies:
+```
+git clone https://github.com/djeck1432/amplifer.git
+```
+After you downloaded the repository open a folder `amplifier` using next command:
+```
+cd amplifier
+```
+Now all of the required libraries and modules have to be installed:
+```
+pip install -r requirements.txt
+```
 Now we are ready for the script.
 
 ## How to start 
-For start, code do the next command in the terminal:<br>
-```python smm_analyze.py [social network]```<br>
-```Instagram``` - instagram;<br>
-```Facebook``` - facebook; <br>
-```Vkontakte``` - vkontakte;<br>
-Launch example:<br>
-```python smm_analyze.py instagram```<br>
+For start, code do the next command in the terminal:
+```
+python smm_analyze.py [social network]
+```
+`Instagram` - instagram;
+
+`Facebook` - facebook;
+
+`Vkontakte` - vkontakte;
+
+Launch example:
+```
+python smm_analyze.py instagram
+```
 
 
 ## Environment variables 
 
-```INSTAGRAM_LOGIN``` - login to```Instagram```;<br>
-```INSTAGRAM_PASSWORD``` - password to ```Instagram```;<br>
-```INSTAGRAM_ACCAUNT``` - username to  ```Instagram```;<br>
-<br>
-```VK_TOKEN``` - token ```Vkontakte```;<br>
-```VK_GROUP_NAME ```- group name ```Vkontakte```;<br>
-<br>
-```FACEBOOK_TOKEN```- token ```Facebook```;<br>
-```FACEBOOK_GROUP_ID``` - ```id``` group on  ```Facebook```;
+`INSTAGRAM_LOGIN` - login to`Instagram`;
+
+`INSTAGRAM_PASSWORD` - password to `Instagram`;
+
+`INSTAGRAM_ACCAUNT` - username to  `Instagram`;
+
+
+`VK_TOKEN` - token `Vkontakte`;
+
+`VK_GROUP_NAME `- group name `Vkontakte`;
+
+
+`FACEBOOK_TOKEN`- token `Facebook`;
+
+`FACEBOOK_GROUP_ID` - `id` group on  `Facebook`;
