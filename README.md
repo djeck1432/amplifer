@@ -48,6 +48,8 @@ python smm_analyze.py instagram
 
 `VK_GROUP_NAME `- group name `Vkontakte`;
 
+`VK_POSTS_AMOUNT` - amount of post;
+
 
 `FACEBOOK_TOKEN`- token `Facebook`;
 
