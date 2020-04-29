@@ -5,11 +5,12 @@ import datetime
 
 
 def check_response(response):
+    response = response.json()
     if 'response' in response.json():
-        response_json = response.json()['response']
-        return response_json
+        vk_response = response['response']
+        return vk_response
     else:
-        raise requests.HTTPError(response.json()['error']['error_msg'])
+        raise requests.HTTPError(response['error']['error_msg'])
 
 
 def get_payload(vk_token, offset):
@@ -32,10 +33,10 @@ def fetch_posts(vk_token, vk_group_name):
         payload = get_payload(vk_token, offset)
         payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        response_json = check_response(response)
+        vk_response = check_response(response)
         offset += 100
-        count_posts = response_json['count']
-        post_items = response_json['items']
+        count_posts = vk_response['count']
+        post_items = vk_response['items']
         post_ids = [post_items[post_number]['id'] for post_number, item in enumerate(post_items)]
         posts_ids.extend(post_ids)
     return posts_ids
@@ -49,27 +50,27 @@ def get_group_id(vk_token, vk_group_name):
         'v': '5.103'
     }
     response = requests.get(url=url, params=params)
-    response_json = check_response(response)
-    return f"-{response_json[0]['id']}"
+    vk_response = check_response(response)
+    return f"-{vk_response[0]['id']}"
 
 
-def fetch_commetns(vk_token, post_id, group_id):
+def get_commetns(vk_token, post_id, group_id):
     url = 'https://api.vk.com/method/wall.getComments'
     offset = 0
-    count_comments = 100
+    comments_count = 100
     comments = []
-    while offset < count_comments:
+    while offset < comments_count:
         extra_payload = {'owner_id': group_id,'post_id': post_id}
         payload = get_payload(vk_token, offset)
         payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        response_json = check_response(response)
+        vk_response = check_response(response)
         offset += 100
-        count_comments = response_json['count']
-        comments_count = len(response_json['items'])
-        if comments_count > 0:
-            for comment_number in range(comments_count):
-                comments.append(response_json['items'][comment_number])
+        comments_count = vk_response['count']
+        items_count = len(vk_response['items'])
+        if items_count > 0:
+            for comment_number in range(items_count):
+                comments.append(vk_response['items'][comment_number])
     return comments
 
 
@@ -85,7 +86,7 @@ def fetch_comments_period(comments, period=1209600):
     return last_comments
 
 
-def fetch_comments_id(last_comments, group_id):
+def fetch_comments_ids(last_comments, group_id):
     filter_comments = []
     for user_id in last_comments.keys():
         if user_id != group_id:
@@ -103,10 +104,10 @@ def fetch_all_likes(vk_token, group_id, post_id):
         payload = get_payload(vk_token, offset)
         payload.update(extra_payload)
         response = requests.post(url=url, data=payload)
-        response_json = check_response(response)
+        vk_response = check_response(response)
         offset += 100
-        count_likes = response_json['count']
-        likes.extend(response_json['items'])
+        count_likes = vk_response['count']
+        likes.extend(vk_response['items'])
     return set(likes)
 
 
@@ -114,17 +115,19 @@ def run_vk():
     load_dotenv()
     vk_token = os.getenv('VK_TOKEN')
     vk_group_name = os.getenv('VK_GROUP_NAME')
+    vk_posts_amount = os.getenv('VK_POSTS_AMOUNT')
+
     group_id = get_group_id(vk_token, vk_group_name)
 
-    posts = fetch_posts(vk_token,vk_group_name)[:5]
-    cern = []
+    posts = fetch_posts(vk_token,vk_group_name)[:vk_posts_amount]
+    core_audience = []
     for post_id in posts:
-        comments = fetch_commetns(vk_token, post_id, group_id)
+        comments = get_commetns(vk_token, post_id, group_id)
         last_comments = fetch_comments_period(comments)
-        comments = fetch_comments_id(last_comments, group_id)
+        comments = fetch_comments_ids(last_comments, group_id)
         likes = fetch_all_likes(vk_token, group_id, post_id)
-        cern.append(comments.difference(likes))
-    print(cern)
+        core_audience.append(comments.difference(likes))
+    print(core_audience)
 
 
 if __name__ == '__main__':
